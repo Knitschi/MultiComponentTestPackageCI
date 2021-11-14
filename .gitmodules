@@ -4,9 +4,6 @@
 [submodule "Sources/CPFCMake"]
 	path = Sources/CPFCMake
 	url = https://github.com/Knitschi/CPFCMake.git
-[submodule "Sources/CPFBuildscritps"]
-	path = Sources/CPFBuildscritps
-	url = https://github.com/Knitschi/CPFBuildscripts.git
 [submodule "Sources/MultiComponentTestPackage"]
 	path = Sources/MultiComponentTestPackage
 	url = https://github.com/Knitschi/MultiComponentTestPackage.git
