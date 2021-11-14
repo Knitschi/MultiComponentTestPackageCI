@@ -7,9 +7,9 @@ from pathlib import PurePath, PurePosixPath
 
 class BuildCPFAssistantConan(ConanFile):
     name = "MultiComponentTestPackage"
-    url = "https://github.com/Knitschi/SimpleOneLibCPFTestProject"
+    url = "https://github.com/Knitschi/MultiComponentTestPackage"
     license = "MIT"
-    description = "A package that is created by the SimpleOneLibCPFTestProject repository."
+    description = "A package that is created by the MultiComponentTestPackage repository."
 
     # Binary configuration
     settings = "os", "arch", "compiler", "build_type"
@@ -30,7 +30,7 @@ class BuildCPFAssistantConan(ConanFile):
     }
 
     # Dependencies
-    build_requires = "cmake/3.20.4", "doxygen/1.8.17"
+    build_requires = "cmake/3.20.4"
 
     generators = "cmake"
     #generators = "CMakeToolchain" "CMakeDeps" # according to mateusz the future default generators.
