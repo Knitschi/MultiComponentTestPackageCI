@@ -6,7 +6,7 @@ from conans.tools import os_info, SystemPackageTool
 from pathlib import PurePath, PurePosixPath
 
 class BuildCPFAssistantConan(ConanFile):
-    name = "MyLib"
+    name = "MultiComponentTestPackage"
     url = "https://github.com/Knitschi/SimpleOneLibCPFTestProject"
     license = "MIT"
     description = "A package that is created by the SimpleOneLibCPFTestProject repository."
@@ -36,7 +36,7 @@ class BuildCPFAssistantConan(ConanFile):
     #generators = "CMakeToolchain" "CMakeDeps" # according to mateusz the future default generators.
 
     def source(self):
-        self.run("git clone --recursive https://github.com/Knitschi/SimpleOneLibCPFTestProject.git {0}".format(self.source_folder))
+        self.run("git clone --recursive https://github.com/Knitschi/MultiComponentTestPackageCI.git {0}".format(self.source_folder))
         #self.run("cd {0} && git checkout {1}".format(self.source_folder, self.version))
 
     def build(self):
@@ -50,37 +50,40 @@ class BuildCPFAssistantConan(ConanFile):
             self.deps_cpp_info["doxygen"].bindirs[0].replace("\\","/")
         ))
         self.run("python 3_Generate.py {0}".format(self.options.CPF_CONFIG))
-        self.run("python 4_Make.py {0} --target MyLib --config {1}".format(self.options.CPF_CONFIG, self.settings.build_type))
+        self.run("python 4_Make.py {0} --target pipeline --config {1}".format(self.options.CPF_CONFIG, self.settings.build_type))
  
     def package(self):
-        self.run("python 4_Make.py {0} --target install_MyLib --config {1}".format(self.options.CPF_CONFIG, self.settings.build_type))
+        self.run("python 4_Make.py {0} --target install_pipeline --config {1}".format(self.options.CPF_CONFIG, self.settings.build_type))
  
  
     @property
     def _postfix(self):
         return self.options.debug_postfix if self.settings.build_type == "Debug" else ""
  
+
+    def add_component(self, componentName):
+        self.cpp_info.components[componentName].set_property("cmake_target_name", componentName)
+        self.cpp_info.components[componentName].set_property("pkg_config_name", componentName)
+        self.cpp_info.components[componentName].libs = ["{0}{1}".format(componentName,self._postfix)]
+        self.cpp_info.components[componentName].libdirs = ["lib"]
+        self.cpp_info.components[componentName].bindirs = [""]
+        self.cpp_info.components[componentName].includedirs = ["{0}/include".format(componentName)]
+
     def package_info(self):
-        self.cpp_info.set_property("cmake_file_name", "MyLib")
-        self.cpp_info.set_property("cmake_target_name", "MyLib")
-        self.cpp_info.set_property("cmake_target_namespace", "mylib")
-        self.cpp_info.libs = ["MyLib{}".format(self._postfix)]
-        self.cpp_info.libdirs = ["MyLib/lib"]
-        self.cpp_info.bindirs = ["MyLib"]
-        self.cpp_info.includedirs = ["MyLib/include"]
-        self.cpp_info.cmake_target_name = "MyLib"
-        self.cpp_info.pkg_config_name = "MyLib"
+        self.cpp_info.set_property("cmake_file_name", "MultiComponentTestPackage")
+        #self.cpp_info.set_property("cmake_target_name", "MyLib")
+        self.cpp_info.set_property("cmake_target_namespace", "mctp")
+        #self.cpp_info.libs = ["AComponent{}".format(self._postfix), "BComponent{}".format(self._postfix)]
+        #self.cpp_info.libdirs = ["lib"]
+        #self.cpp_info.bindirs = ["."]
+        #self.cpp_info.includedirs = ["AComponent/include"]
+        #self.cpp_info.cmake_target_name = "MyLib"
+        self.cpp_info.pkg_config_name = "MultiComponentTestPackage"
 
-        #self.cpp_info.components["MyLib"].names["cmake_find_package"] = "MyLib"
-        #self.cpp_info.components["MyLib"].names["cmake_find_package_multi"] = "MyLib"
-        #self.cpp_info.components["MyLib"].names["cmake_find_package"] = "MyLib"
-        #self.cpp_info.components["MyLib"].set_property("cmake_target_name", "MyLib")
-        #self.cpp_info.components["MyLib"].set_property("pkg_config_name", "MyLib")
+        self.add_component("AComponent")
+        self.add_component("BComponent")
 
-        #self.cpp_info.components["MyLib"].libs = ["MyLib{}".format(self._postfix)]
-        #self.cpp_info.components["MyLib"].libdirs = ["MyLib/lib"]
-        #self.cpp_info.components["MyLib"].bindirs = ["MyLib"]
-        #self.cpp_info.components["MyLib"].includedirs = ["MyLib/include"]
+
         
         #self.cpp_info.components["MyLib"].requires = [""]
 
