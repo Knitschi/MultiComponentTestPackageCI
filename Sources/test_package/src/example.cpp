@@ -1,8 +1,9 @@
-#include <MyLib/function.h>
-
+#include <AComponent/function.h>
+#include <BComponent/function.h>
 
 int main() 
 {
-	mylib::function();
+	a::function();
+    b::function();
     return 0;
 }
