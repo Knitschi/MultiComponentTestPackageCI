@@ -7,6 +7,7 @@
 [submodule "Sources/MultiComponentTestPackage"]
 	path = Sources/MultiComponentTestPackage
 	url = https://github.com/Knitschi/MultiComponentTestPackage.git
+	branch = main
 [submodule "Sources/CPFBuildscripts"]
 	path = Sources/CPFBuildscripts
 	url = https://github.com/Knitschi/CPFBuildscripts.git
