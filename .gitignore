@@ -5,9 +5,9 @@
 /Generated
 /Configuration
 /install
-/Sources/test_package/graph_info.json
-/Sources/test_package/conan.lock
-/Sources/test_package/conanbuildinfo.cmake
-/Sources/test_package/conanbuildinfo.txt
-/Sources/test_package/conaninfo.txt
-/Sources/test_package/build
+/Sources/test_package_MultiComponentTestPackage/graph_info.json
+/Sources/test_package_MultiComponentTestPackage/conan.lock
+/Sources/test_package_MultiComponentTestPackage/conanbuildinfo.cmake
+/Sources/test_package_MultiComponentTestPackage/conanbuildinfo.txt
+/Sources/test_package_MultiComponentTestPackage/conaninfo.txt
+/Sources/test_package_MultiComponentTestPackage/build
